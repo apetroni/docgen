@@ -19,6 +19,10 @@ import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.runtime.state.FunctionInitializationContext;
 import org.apache.flink.runtime.state.FunctionSnapshotContext;
 import org.apache.flink.streaming.api.checkpoint.CheckpointedFunction;
+import java.util.Arrays;
+
+import org.apache.flink.api.common.functions.FlatMapFunction;
+import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.util.Collector;
@@ -40,6 +44,7 @@ public class SimpleFlinkApp {
             .keyBy(value -> value.f0)
             .sum(1)
             .map(new StatisticsCheckpointListener());
+            .sum(1);
 
         counts.print();
 
